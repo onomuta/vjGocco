@@ -13,8 +13,8 @@ let clip_b
 function preload() {
   imgs[0] = loadImage('https://media.giphy.com/media/3osxYhj4VNwxHdlE9G/giphy.gif');
   imgs[1] = loadImage('https://media.giphy.com/media/xTiTnkZoCSqp3Dn6yk/giphy.gif');
-  imgs[2] = loadImage('https://media.giphy.com/media/AJ0eD0YBPoHXW/giphy.gif');
-
+  imgs[2] = loadImage('https://media.giphy.com/media/AJ0eD0YBPoHXW/giphy.gif');¥
+  imgs[3] = loadImage('https://media.giphy.com/media/l2JhnGD2WReo6VkWc/giphy.gif');
 
 }
 
