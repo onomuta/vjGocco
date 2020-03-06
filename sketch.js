@@ -11,16 +11,27 @@ let clip_a
 let clip_b
 
 function preload() {
-  imgs[0] = loadImage('https://media.giphy.com/media/3osxYhj4VNwxHdlE9G/giphy.gif');
-  imgs[1] = loadImage('https://media.giphy.com/media/xTiTnkZoCSqp3Dn6yk/giphy.gif');
-  imgs[2] = loadImage('https://media.giphy.com/media/AJ0eD0YBPoHXW/giphy.gif');
-  imgs[3] = loadImage('https://media.giphy.com/media/L73N7YlkzdrgI/giphy.gif');
-  imgs[4] = loadImage('https://media.giphy.com/media/uUl6xIoDXyceJ0j9Mf/giphy.gif');
-  imgs[5] = loadImage('https://media.giphy.com/media/l0Iyn0Tg9MpGpfWBa/giphy.gif');
-  imgs[6] = loadImage('https://media.giphy.com/media/4qO2dWoZL8Q8M/giphy.gif');
+  // imgs[0] = loadImage('https://media.giphy.com/media/3osxYhj4VNwxHdlE9G/giphy.gif');
+  // imgs[1] = loadImage('https://media.giphy.com/media/xTiTnkZoCSqp3Dn6yk/giphy.gif');
+  // imgs[2] = loadImage('https://media.giphy.com/media/AJ0eD0YBPoHXW/giphy.gif');
+  // imgs[3] = loadImage('https://media.giphy.com/media/L73N7YlkzdrgI/giphy.gif');
+  // imgs[4] = loadImage('https://media.giphy.com/media/uUl6xIoDXyceJ0j9Mf/giphy.gif');
+  // imgs[5] = loadImage('https://media.giphy.com/media/l0Iyn0Tg9MpGpfWBa/giphy.gif');
+  // imgs[6] = loadImage('https://media.giphy.com/media/4qO2dWoZL8Q8M/giphy.gif');
+  imgs[0] = loadImage('./clips/clip01.gif');
+  imgs[1] = loadImage('./clips/clip02.gif');
+  imgs[2] = loadImage('./clips/clip03.gif');
+  imgs[3] = loadImage('./clips/clip04.gif');
+  imgs[4] = loadImage('./clips/clip05.gif');
+  imgs[5] = loadImage('./clips/clip06.gif');
+  imgs[6] = loadImage('./clips/clip01.gif');
+  imgs[7] = loadImage('./clips/clip08.gif');
+  imgs[8] = loadImage('./clips/clip09.gif');
+  imgs[9] = loadImage('./clips/clip10.gif');
 }
 
 function setup() {
+  frameRate(30)
   createCanvas(windowWidth, windowHeight);
   gui = createGui();
   mobileLayout(); // <- uncomment for mobile layout  
@@ -60,7 +71,8 @@ function draw() {
     } else {
       clip_a = (clip_a - 1) % imgs.length
     }
-  } else if (b_aNext.isPressed) {
+  }
+  if (b_aNext.isPressed) {
     clip_a = (clip_a + 1) % imgs.length
   }
 
@@ -70,7 +82,8 @@ function draw() {
     } else {
       clip_b = (clip_b - 1) % imgs.length
     }
-  } else if (b_bNext.isPressed) {
+  }
+  if (b_bNext.isPressed) {
     clip_b = (clip_b + 1) % imgs.length
   }
 
@@ -128,6 +141,9 @@ function draw() {
     }
   }
 
+  text(clip_a+"-"+clip_b,50,50)
+
+  
 
   drawFps(2);
 }
