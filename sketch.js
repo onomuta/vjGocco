@@ -14,8 +14,10 @@ function preload() {
   imgs[0] = loadImage('https://media.giphy.com/media/3osxYhj4VNwxHdlE9G/giphy.gif');
   imgs[1] = loadImage('https://media.giphy.com/media/xTiTnkZoCSqp3Dn6yk/giphy.gif');
   imgs[2] = loadImage('https://media.giphy.com/media/AJ0eD0YBPoHXW/giphy.gif');
-  imgs[3] = loadImage('https://media.giphy.com/media/l2JhnGD2WReo6VkWc/giphy.gif');
-
+  imgs[3] = loadImage('https://media.giphy.com/media/L73N7YlkzdrgI/giphy.gif');
+  imgs[4] = loadImage('https://media.giphy.com/media/uUl6xIoDXyceJ0j9Mf/giphy.gif');
+  imgs[5] = loadImage('https://media.giphy.com/media/l0Iyn0Tg9MpGpfWBa/giphy.gif');
+  imgs[6] = loadImage('https://media.giphy.com/media/4qO2dWoZL8Q8M/giphy.gif');
 }
 
 function setup() {
@@ -31,7 +33,7 @@ function setup() {
 }
 
 let transformVal = 1;
-let latestBright;
+let bright;
 
 function draw() {
 
@@ -46,21 +48,28 @@ function draw() {
     transformVal = -transformVal
   }
 
-  if (b2.isPressed) {
-    latestBright = s2.val
-    s2.val = 0;
-  } else if (b2.isReleased) {
-    s2.val = latestBright;
+  if (b2.isHeld) {
+    bright = 0
+  } else {
+    bright = s2.val
   }
 
   if (b_aBack.isPressed) {
-    clip_a = abs(clip_a - 1) % imgs.length
+    if (clip_a - 1 < 0) {
+      clip_a = imgs.length - 1
+    } else {
+      clip_a = (clip_a - 1) % imgs.length
+    }
   } else if (b_aNext.isPressed) {
     clip_a = (clip_a + 1) % imgs.length
   }
 
   if (b_bBack.isPressed) {
-    clip_b = abs(clip_b - 1) % imgs.length
+    if (clip_b - 1 < 0) {
+      clip_b = imgs.length - 1
+    } else {
+      clip_b = (clip_b - 1) % imgs.length
+    }
   } else if (b_bNext.isPressed) {
     clip_b = (clip_b + 1) % imgs.length
   }
@@ -73,19 +82,52 @@ function draw() {
     print(s2.label + " = " + s2.val);
   }
 
+
   noStroke()
-  rect(0, 0, w, w * 0.5625)
+  rect(0, 0, w, min(h * 0.38, w * 0.5625))
 
-  tint(255, (255 - s1.val * 255) * s2.val);
-  image(imgs[clip_a], 0, 0, w, w * 0.5625);
-  tint(255, s1.val * 255 * s2.val);
-  image(imgs[clip_b], 0, 0, w, w * 0.5625);
-
+  if (b_fx1.isHeld) {
+    tint(255, (255 - s1.val * 255) * bright);
+    image(imgs[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), imgs[clip_a].width/2, 0, 1, imgs[clip_a].width);
+    tint(255, s1.val * 255 * bright);
+    image(imgs[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), imgs[clip_b].width/2, 0, 1, imgs[clip_b].width);
+  } else if(b_fx2.isHeld){
+    tint(255, (255 - s1.val * 255) * bright);
+    image(imgs[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), 0, imgs[clip_a].height/2, imgs[clip_a].height, 1);
+    tint(255, s1.val * 255 * bright);
+    image(imgs[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), 0, imgs[clip_b].height/2, imgs[clip_b].height, 1);
+  } else if(b_fx3.isHeld){
+    tint(255, (255 - s1.val * 255) * bright);
+    let rx = random(imgs[clip_a].width)
+    let ry = random(imgs[clip_a].height)
+    let rw = random(imgs[clip_a].height-rx)
+    let rh = random(imgs[clip_a].height-ry)
+    image(imgs[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
+    tint(255, s1.val * 255 * bright);
+    image(imgs[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
+  }else {
+    tint(255, (255 - s1.val * 255) * bright);
+    image(imgs[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625));
+    tint(255, s1.val * 255 * bright);
+    image(imgs[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625));
+  }
   stroke(255)
-  rect(w * 0.30, h * 0.74, w * 0.30, w * 0.30 * 0.5625);
+  // rect(w * 0.30, h * 0.74, w * 0.30, w * 0.30 * 0.5625);
   noTint()
-  image(imgs[clip_a], w * 0.30, h * 0.74, w * 0.30, w * 0.30 * 0.5625);
-  image(imgs[clip_b], w * 0.60, h * 0.74, w * 0.30, w * 0.30 * 0.5625);
+  image(imgs[clip_a], w * 0.30, h * 0.75, w * 0.30, min(h * 0.1,w * 0.30 * 0.5625));
+  image(imgs[clip_b], w * 0.60, h * 0.75, w * 0.30, min(h * 0.1,w * 0.30 * 0.5625));
+
+  if (b_strobo.isHeld) {
+    noStroke()
+    if (frameCount % 6 < 2) {
+      fill(255, 130)
+      rect(0, 0, w, min(h * 0.38, w * 0.5625))
+    } else if (frameCount % 6 < 4) {
+      fill(0)
+      rect(0, 0, w, min(h * 0.38, w * 0.5625))
+    }
+  }
+
 
   drawFps(2);
 }
@@ -94,7 +136,7 @@ function mobileLayout() {
   let w = width;
   let h = height;
 
-  b1 = createButton("Transform", 0, 0, w, w * 0.56);
+  b1 = createButton("Transform", 0, 0, w, min(h * 0.3, w * 0.56));
   b2 = createButton("Black", w * 0.1, h * 0.85, w * 0.15, h * 0.1);
 
 
@@ -103,23 +145,18 @@ function mobileLayout() {
   b_bBack = createButton("<", w * 0.60, h * 0.85, w * 0.15, h * 0.1);
   b_bNext = createButton(">", w * 0.75, h * 0.85, w * 0.15, h * 0.1);
 
-  b_fx1 = createButton("strobo", w * 0.30, h * 0.50, w * 0.15, h * 0.1);
+  b_strobo = createButton("strobo", w * 0.30, h * 0.50, w * 0.15, h * 0.1);
   b_fx1 = createButton("FX1", w * 0.45, h * 0.50, w * 0.15, h * 0.1);
-  b_fx1 = createButton("FX2", w * 0.60, h * 0.50, w * 0.15, h * 0.1);
-  b_fx1 = createButton("FX3", w * 0.75, h * 0.50, w * 0.15, h * 0.1);
+  b_fx2 = createButton("FX2", w * 0.60, h * 0.50, w * 0.15, h * 0.1);
+  b_fx3 = createButton("FX3", w * 0.75, h * 0.50, w * 0.15, h * 0.1);
 
-
-
+  s1 = createCrossfader("SliderH", w * 0.1, h * 0.4, w * 0.8, h * 0.08, 0, 1);
+  s2 = createSliderV("SliderV", w * 0.1, h * 0.5, w * 0.15, h * 0.35, 0, 1);
   // t1 = createToggle("Toggle 1", w * 0.05, h * 0.2, w * 0.4375, h * 0.125);
-  // cf1 = createCrossfader("Crossfader 1", w * 0.5125, h * 0.2, w * 0.4375, h * 0.125);
-  s1 = createCrossfader("SliderH", w * 0.1, h * 0.35, w * 0.8, h * 0.125, 0, 1);
-  s2 = createSliderV("SliderV", w * 0.1, h * 0.5, w * 0.15, h * 0.35, 0, 1); // Last two args are min and max
   // cb1 = createCheckbox("Checkbox 1", w * 0.275, h * 0.5, w * 0.2125, h * 0.2125);
-  // cb2 = createCheckbox("Checkbox 2", w * 0.275, h * 0.7375, w * 0.2125, h * 0.2125);
   // s2d1 = createSlider2d("Slider2d 1", w * 0.5125, h * 0.5, w * 0.4375, h * 0.45);
 }
 
-// TESTING ONLY - Draws an FPS averaged over a duration in seconds
 function drawFps(duration) {
   let avgFps = 0;
 
@@ -127,19 +164,15 @@ function drawFps(duration) {
   if (fps.length > 60 * duration) {
     fps.splice(0, 1);
   }
-
   for (let i = 0; i < fps.length; i++) {
     avgFps += fps[i];
   }
   avgFps = avgFps / fps.length;
-
   push();
   textSize(20);
   text(int(avgFps), 32, 32);
   pop();
 }
-
-
 
 function touchMoved() {
   return false;
