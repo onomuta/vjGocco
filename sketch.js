@@ -18,8 +18,8 @@ function preload() {
   // imgs[4] = loadImage('https://media.giphy.com/media/uUl6xIoDXyceJ0j9Mf/giphy.gif');
   // imgs[5] = loadImage('https://media.giphy.com/media/l0Iyn0Tg9MpGpfWBa/giphy.gif');
   // imgs[6] = loadImage('https://media.giphy.com/media/4qO2dWoZL8Q8M/giphy.gif');
-  imgs[0] = loadImage('./clips/clip01.gif');
-  imgs[1] = loadImage('./clips/clip02.gif');
+  imgs[0] = loadImage('./clips/clip00.gif');
+  imgs[1] = loadImage('./clips/clip01.gif');
   // imgs[2] = loadImage('./clips/clip03.gif');
   // imgs[3] = loadImage('./clips/clip04.gif');
   // imgs[4] = loadImage('./clips/clip05.gif');
