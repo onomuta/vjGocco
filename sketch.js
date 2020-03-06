@@ -20,14 +20,14 @@ function preload() {
   // imgs[6] = loadImage('https://media.giphy.com/media/4qO2dWoZL8Q8M/giphy.gif');
   imgs[0] = loadImage('./clips/clip01.gif');
   imgs[1] = loadImage('./clips/clip02.gif');
-  imgs[2] = loadImage('./clips/clip03.gif');
-  imgs[3] = loadImage('./clips/clip04.gif');
-  imgs[4] = loadImage('./clips/clip05.gif');
-  imgs[5] = loadImage('./clips/clip06.gif');
-  imgs[6] = loadImage('./clips/clip01.gif');
-  imgs[7] = loadImage('./clips/clip08.gif');
-  imgs[8] = loadImage('./clips/clip09.gif');
-  imgs[9] = loadImage('./clips/clip10.gif');
+  // imgs[2] = loadImage('./clips/clip03.gif');
+  // imgs[3] = loadImage('./clips/clip04.gif');
+  // imgs[4] = loadImage('./clips/clip05.gif');
+  // imgs[5] = loadImage('./clips/clip06.gif');
+  // imgs[6] = loadImage('./clips/clip01.gif');
+  // imgs[7] = loadImage('./clips/clip08.gif');
+  // imgs[8] = loadImage('./clips/clip09.gif');
+  // imgs[9] = loadImage('./clips/clip10.gif');
 }
 
 function setup() {
