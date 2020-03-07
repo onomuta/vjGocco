@@ -121,28 +121,28 @@ function draw() {
   rect(0, 0, w, min(h * 0.38, w * 0.5625))
 
   if (b_fx1.isHeld) {
-    tint(255, (255 - s1.val * 255) * bright);
+    tint(255);
     image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), 640/2, 0, 1, 640);
-    tint(255, s1.val * 255 * bright);
+    tint(255, (s1.val+1)/2 * 255 * bright);
     image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), 640/2, 0, 1, 640);
   } else if(b_fx2.isHeld){
-    tint(255, (255 - s1.val * 255) * bright);
+    tint(255);
     image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), 0, 320/2, 320, 1);
-    tint(255, s1.val * 255 * bright);
+    tint(255, (s1.val+1)/2 * 255 * bright);
     image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), 0, 320/2, 320, 1);
   } else if(b_fx3.isHeld){
-    tint(255, (255 - s1.val * 255) * bright);
+    tint(255);
     let rx = random(imgsA[clip_a].width)
     let ry = random(imgsA[clip_a].height)
     let rw = random(imgsA[clip_a].height-rx)
     let rh = random(imgsA[clip_a].height-ry)
     image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
-    tint(255, s1.val * 255 * bright);
+    tint(255, (s1.val+1)/2 * 255 * bright);
     image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
   }else {
-    tint(255, (255 - s1.val * 255) * bright);
+    tint(255);
     image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625));
-    tint(255, s1.val * 255 * bright);
+    tint(255, (s1.val+1)/2 * 255 * bright);
     image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625));
   }
   stroke(255)
@@ -185,7 +185,7 @@ function mobileLayout() {
   b_fx2 = createButton("FX2", w * 0.60, h * 0.50, w * 0.15, h * 0.1);
   b_fx3 = createButton("FX3", w * 0.75, h * 0.50, w * 0.15, h * 0.1);
 
-  s1 = createCrossfader("SliderH", w * 0.1, h * 0.4, w * 0.8, h * 0.08, 0, 1);
+  s1 = createCrossfader("SliderH", w * 0.1, h * 0.4, w * 0.8, h * 0.08, -1, 1);
   s2 = createSliderV("SliderV", w * 0.1, h * 0.5, w * 0.15, h * 0.35, 0, 1);
   // t1 = createToggle("Toggle 1", w * 0.05, h * 0.2, w * 0.4375, h * 0.125);
   // cb1 = createCheckbox("Checkbox 1", w * 0.275, h * 0.5, w * 0.2125, h * 0.2125);
