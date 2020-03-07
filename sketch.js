@@ -7,6 +7,8 @@ let gui;
 // For framerate testing
 let fps = [];
 let imgs = []
+let imgsA = []
+let imgsB = []
 let clip_a
 let clip_b
 
@@ -18,12 +20,27 @@ function preload() {
   // imgs[4] = loadImage('https://media.giphy.com/media/uUl6xIoDXyceJ0j9Mf/giphy.gif');
   // imgs[5] = loadImage('https://media.giphy.com/media/l0Iyn0Tg9MpGpfWBa/giphy.gif');
   // imgs[6] = loadImage('https://media.giphy.com/media/4qO2dWoZL8Q8M/giphy.gif');
-  imgs[0] = loadImage('./clips/clip00.gif');
-  imgs[1] = loadImage('./clips/clip01.gif');
-  imgs[2] = loadImage('./clips/clip02.gif');
-  imgs[3] = loadImage('./clips/clip03.gif');
-  imgs[4] = loadImage('./clips/clip04.gif');
-  imgs[5] = loadImage('./clips/clip05.gif');
+  // imgs[0] = loadImage('./clips/clip00.gif');
+  // imgs[1] = loadImage('./clips/clip01.gif');
+  // imgs[2] = loadImage('./clips/clip02.gif');
+  // imgs[3] = loadImage('./clips/clip03.gif');
+  // imgs[4] = loadImage('./clips/clip04.gif');
+  // imgs[5] = loadImage('./clips/clip05.gif');
+
+  imgsA[0] = loadImage('./clips/clip00.gif');
+  imgsA[1] = loadImage('./clips/clip01.gif');
+  imgsA[2] = loadImage('./clips/clip02.gif');
+  imgsA[3] = loadImage('./clips/clip03.gif');
+  imgsA[4] = loadImage('./clips/clip04.gif');
+  imgsA[5] = loadImage('./clips/clip05.gif');
+
+  imgsB[0] = loadImage('./clips/clip00.gif');
+  imgsB[1] = loadImage('./clips/clip01.gif');
+  imgsB[2] = loadImage('./clips/clip02.gif');
+  imgsB[3] = loadImage('./clips/clip03.gif');
+  imgsB[4] = loadImage('./clips/clip04.gif');
+  imgsB[5] = loadImage('./clips/clip05.gif');
+
 }
 
 function setup() {
@@ -62,25 +79,33 @@ function draw() {
   }
 
   if (b_aBack.isPressed) {
-    if (clip_a - 1 < 0) {
-      clip_a = imgs.length - 1
-    } else {
-      clip_a = (clip_a - 1) % imgs.length
-    }
+    clip_a --
+    rect(30,800,10,10)
   }
   if (b_aNext.isPressed) {
-    clip_a = (clip_a + 1) % imgs.length
+    clip_a ++
+    rect(30,820,10,10)
+
+    
+
   }
+
+  if(clip_a >= imgsA.length){
+    clip_a = 0
+  }else if(clip_a < 0){
+    clip_a = imgsA.length-1
+  }
+
 
   if (b_bBack.isPressed) {
     if (clip_b - 1 < 0) {
-      clip_b = imgs.length - 1
+      clip_b = imgsA.length - 1
     } else {
-      clip_b = (clip_b - 1) % imgs.length
+      clip_b = (clip_b - 1) % imgsA.length
     }
   }
   if (b_bNext.isPressed) {
-    clip_b = (clip_b + 1) % imgs.length
+    clip_b = (clip_b + 1) % imgsA.length
   }
 
 
@@ -97,34 +122,34 @@ function draw() {
 
   if (b_fx1.isHeld) {
     tint(255, (255 - s1.val * 255) * bright);
-    image(imgs[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), imgs[clip_a].width/2, 0, 1, imgs[clip_a].width);
+    image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), 640/2, 0, 1, 640);
     tint(255, s1.val * 255 * bright);
-    image(imgs[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), imgs[clip_b].width/2, 0, 1, imgs[clip_b].width);
+    image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), 640/2, 0, 1, 640);
   } else if(b_fx2.isHeld){
     tint(255, (255 - s1.val * 255) * bright);
-    image(imgs[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), 0, imgs[clip_a].height/2, imgs[clip_a].height, 1);
+    image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), 0, 320/2, 320, 1);
     tint(255, s1.val * 255 * bright);
-    image(imgs[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), 0, imgs[clip_b].height/2, imgs[clip_b].height, 1);
+    image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), 0, 320/2, 320, 1);
   } else if(b_fx3.isHeld){
     tint(255, (255 - s1.val * 255) * bright);
-    let rx = random(imgs[clip_a].width)
-    let ry = random(imgs[clip_a].height)
-    let rw = random(imgs[clip_a].height-rx)
-    let rh = random(imgs[clip_a].height-ry)
-    image(imgs[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
+    let rx = random(imgsA[clip_a].width)
+    let ry = random(imgsA[clip_a].height)
+    let rw = random(imgsA[clip_a].height-rx)
+    let rh = random(imgsA[clip_a].height-ry)
+    image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
     tint(255, s1.val * 255 * bright);
-    image(imgs[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
+    image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
   }else {
     tint(255, (255 - s1.val * 255) * bright);
-    image(imgs[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625));
+    image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625));
     tint(255, s1.val * 255 * bright);
-    image(imgs[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625));
+    image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625));
   }
   stroke(255)
   // rect(w * 0.30, h * 0.74, w * 0.30, w * 0.30 * 0.5625);
   noTint()
-  image(imgs[clip_a], w * 0.30, h * 0.75, w * 0.30, min(h * 0.1,w * 0.30 * 0.5625));
-  image(imgs[clip_b], w * 0.60, h * 0.75, w * 0.30, min(h * 0.1,w * 0.30 * 0.5625));
+  image(imgsA[clip_a], w * 0.30, h * 0.75, w * 0.30, min(h * 0.1,w * 0.30 * 0.5625));
+  image(imgsB[clip_b], w * 0.60, h * 0.75, w * 0.30, min(h * 0.1,w * 0.30 * 0.5625));
 
   if (b_strobo.isHeld) {
     noStroke()
@@ -138,8 +163,6 @@ function draw() {
   }
 
   text(clip_a+"-"+clip_b,50,50)
-
-  
 
   drawFps(2);
 }
