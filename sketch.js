@@ -41,6 +41,7 @@ function preload() {
   imgsA[6] = loadImage('./clips/clip06.gif');
   imgsA[7] = loadImage('./clips/clip07.gif');
   imgsA[8] = loadImage('./clips/clip08.gif');
+  imgsA[9] = loadImage('./clips/clip09.gif');
 
 
   imgsB[0] = loadImage('./clips/clip00.gif');
@@ -52,6 +53,7 @@ function preload() {
   imgsB[6] = loadImage('./clips/clip06.gif');
   imgsB[7] = loadImage('./clips/clip07.gif');
   imgsB[8] = loadImage('./clips/clip08.gif');
+  imgsB[9] = loadImage('./clips/clip09.gif');
 
 }
 
