@@ -48,6 +48,7 @@ function preload() {
   imgsB[2] = loadImage('./clips/clip02.gif');
   imgsB[3] = loadImage('./clips/clip03.gif');
   imgsB[4] = loadImage('./clips/clip04.gif');
+  imgsB[5] = loadImage('./clips/clip05.gif');
   imgsB[6] = loadImage('./clips/clip06.gif');
   imgsB[7] = loadImage('./clips/clip07.gif');
   imgsB[8] = loadImage('./clips/clip08.gif');
