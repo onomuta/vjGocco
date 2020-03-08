@@ -1,5 +1,5 @@
 // Create variables for accessing GUI objects
-let b1, b2, b3, t1, cf1, cb1, cb2, s1, s2d1;
+let b1, b_black, b3, t1, cf1, cb1, cb2, s_cross, s2d1, b_a,b_b,b_fx1,b_fx2,b_fx3;
 
 // Create a variable for the gui context that we can use to change style
 let gui;
@@ -11,6 +11,10 @@ let imgsA = []
 let imgsB = []
 let clip_a
 let clip_b
+
+const clipWidth = 640
+const clipHeight = 360
+
 
 function preload() {
   // imgs[0] = loadImage('https://media.giphy.com/media/3osxYhj4VNwxHdlE9G/giphy.gif');
@@ -44,13 +48,13 @@ function preload() {
 }
 
 function setup() {
-  frameRate(30)
+  // frameRate(30)
   createCanvas(windowWidth, windowHeight);
   gui = createGui();
   mobileLayout(); // <- uncomment for mobile layout  
   // Set style to Blue!
   gui.loadStyle("TerminalGreen");
-  s1.val = 0
+  s_cross.val = 0
   s2.val = 1
   clip_a = 0
   clip_b = 1
@@ -68,15 +72,16 @@ function draw() {
   drawGui();
 
   if (b1.isPressed) {
-    s1.val = transformVal
+    s_cross.val = transformVal
     transformVal = -transformVal
   }
 
-  if (b2.isHeld) {
+  if (b_black.isHeld) {
     bright = 0
   } else {
     bright = s2.val
   }
+
 
   if (b_aBack.isPressed) {
     clip_a --
@@ -85,9 +90,6 @@ function draw() {
   if (b_aNext.isPressed) {
     clip_a ++
     rect(30,820,10,10)
-
-    
-
   }
 
   if(clip_a >= imgsA.length){
@@ -108,45 +110,46 @@ function draw() {
     clip_b = (clip_b + 1) % imgsA.length
   }
 
-
-  if (s1.isChanged) {
-    print(s1.label + " = " + s1.val);
-  }
-  if (s2.isChanged) {
-    print(s2.label + " = " + s2.val);
-  }
-
-
   noStroke()
   rect(0, 0, w, min(h * 0.38, w * 0.5625))
 
+
+
+  if (b_a.isHeld) {
+    bBright = 0
+  }else if(b_b.isHeld){
+    bBright = 255
+  }else{
+    bBright = (s_cross.val+1)/2 * 255
+  }
+
   if (b_fx1.isHeld) {
-    tint(255);
-    image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), 640/2, 0, 1, 640);
-    tint(255, (s1.val+1)/2 * 255 * bright);
-    image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), 640/2, 0, 1, 640);
+    tint(255,255 * bright);
+    image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), clipWidth/2, 0, 1, clipWidth);
+    tint(255, bBright * bright);
+    image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), clipWidth/2, 0, 1, clipWidth);
   } else if(b_fx2.isHeld){
-    tint(255);
-    image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), 0, 320/2, 320, 1);
-    tint(255, (s1.val+1)/2 * 255 * bright);
-    image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), 0, 320/2, 320, 1);
+    let zoom = (sin(frameCount/3)+1)*100
+    tint(255,255 * bright);
+    image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625),zoom,zoom *0.5625,clipWidth-(zoom*2), clipHeight-(zoom *0.5625)*2);
+    tint(255, bBright * bright);
+    image(imgsA[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625),zoom,zoom *0.5625,clipWidth-(zoom*2), clipHeight-(zoom *0.5625)*2);
   } else if(b_fx3.isHeld){
-    tint(255);
-    let rx = random(imgsA[clip_a].width)
-    let ry = random(imgsA[clip_a].height)
-    let rw = random(imgsA[clip_a].height-rx)
-    let rh = random(imgsA[clip_a].height-ry)
+    tint(255,255 * bright);
+    let rx = random(clipWidth)
+    let ry = random(clipHeight)
+    let rw = random(clipWidth-rx)
+    let rh = random(clipHeight-ry)
     image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
-    tint(255, (s1.val+1)/2 * 255 * bright);
+    tint(255, bBright * bright);
     image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), rx,ry,rw,rh);
   }else {
-    tint(255);
+    tint(255,255 * bright);
     image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625));
-    tint(255, (s1.val+1)/2 * 255 * bright);
+    tint(255, bBright * bright);
     image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625));
   }
   stroke(255)
-  // rect(w * 0.30, h * 0.74, w * 0.30, w * 0.30 * 0.5625);
   noTint()
   image(imgsA[clip_a], w * 0.30, h * 0.75, w * 0.30, min(h * 0.1,w * 0.30 * 0.5625));
   image(imgsB[clip_b], w * 0.60, h * 0.75, w * 0.30, min(h * 0.1,w * 0.30 * 0.5625));
@@ -162,17 +165,21 @@ function draw() {
     }
   }
 
-  text(clip_a+"-"+clip_b,50,50)
+  // debug();
 
-  drawFps(2);
 }
 
 function mobileLayout() {
   let w = width;
   let h = height;
-
+  
   b1 = createButton("Transform", 0, 0, w, min(h * 0.3, w * 0.56));
-  b2 = createButton("Black", w * 0.1, h * 0.85, w * 0.15, h * 0.1);
+
+  b_a = createButton("A", w * 0.1, h * 0.4, w * 0.15, h * 0.08);
+  b_b = createButton("B", w * 0.75, h * 0.4, w * 0.15, h * 0.08);
+  s_cross = createCrossfader("SliderH", w * 0.25, h * 0.4, w * 0.5, h * 0.08, -1, 1);
+
+  b_black = createButton("Black", w * 0.1, h * 0.85, w * 0.15, h * 0.1);
 
 
   b_aBack = createButton("<", w * 0.30, h * 0.85, w * 0.15, h * 0.1);
@@ -185,13 +192,16 @@ function mobileLayout() {
   b_fx2 = createButton("FX2", w * 0.60, h * 0.50, w * 0.15, h * 0.1);
   b_fx3 = createButton("FX3", w * 0.75, h * 0.50, w * 0.15, h * 0.1);
 
-  s1 = createCrossfader("SliderH", w * 0.1, h * 0.4, w * 0.8, h * 0.08, -1, 1);
   s2 = createSliderV("SliderV", w * 0.1, h * 0.5, w * 0.15, h * 0.35, 0, 1);
   // t1 = createToggle("Toggle 1", w * 0.05, h * 0.2, w * 0.4375, h * 0.125);
   // cb1 = createCheckbox("Checkbox 1", w * 0.275, h * 0.5, w * 0.2125, h * 0.2125);
   // s2d1 = createSlider2d("Slider2d 1", w * 0.5125, h * 0.5, w * 0.4375, h * 0.45);
 }
 
+function debug(){
+  text(clip_a+"-"+clip_b,32,50)
+  drawFps(2);
+}
 function drawFps(duration) {
   let avgFps = 0;
 
