@@ -31,19 +31,26 @@ function preload() {
   // imgs[4] = loadImage('./clips/clip04.gif');
   // imgs[5] = loadImage('./clips/clip05.gif');
 
+  // 同じgifを再生すると速度が変化してしまうので二重に読み込み
   imgsA[0] = loadImage('./clips/clip00.gif');
   imgsA[1] = loadImage('./clips/clip01.gif');
   imgsA[2] = loadImage('./clips/clip02.gif');
   imgsA[3] = loadImage('./clips/clip03.gif');
   imgsA[4] = loadImage('./clips/clip04.gif');
   imgsA[5] = loadImage('./clips/clip05.gif');
+  imgsA[6] = loadImage('./clips/clip06.gif');
+  imgsA[7] = loadImage('./clips/clip07.gif');
+  imgsA[8] = loadImage('./clips/clip08.gif');
+
 
   imgsB[0] = loadImage('./clips/clip00.gif');
   imgsB[1] = loadImage('./clips/clip01.gif');
   imgsB[2] = loadImage('./clips/clip02.gif');
   imgsB[3] = loadImage('./clips/clip03.gif');
   imgsB[4] = loadImage('./clips/clip04.gif');
-  imgsB[5] = loadImage('./clips/clip05.gif');
+  imgsB[6] = loadImage('./clips/clip06.gif');
+  imgsB[7] = loadImage('./clips/clip07.gif');
+  imgsB[8] = loadImage('./clips/clip08.gif');
 
 }
 
@@ -129,7 +136,8 @@ function draw() {
     tint(255, bBright * bright);
     image(imgsB[clip_b], 0, 0, w, min(h * 0.38, w * 0.5625), clipWidth/2, 0, 1, clipWidth);
   } else if(b_fx2.isHeld){
-    let zoom = (sin(frameCount/3)+1)*100
+    // let zoom = (sin(frameCount/3)+1)*100
+    let zoom = random(300)-100
     tint(255,255 * bright);
     image(imgsA[clip_a], 0, 0, w, min(h * 0.38, w * 0.5625),zoom,zoom *0.5625,clipWidth-(zoom*2), clipHeight-(zoom *0.5625)*2);
     tint(255, bBright * bright);
